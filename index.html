@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My rich routine</title>
+    <!-- Font Awesome CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;700&display=swap" rel="stylesheet">
+    <!-- Swiper CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- 导航栏 -->
+    <nav class="navbar">
+        <div class="nav-brand">My rich routine</div>
+        <div class="nav-links">
+            <a href="#about">关于我</a>
+            <a href="#gallery">作品集</a>
+            <a href="#contact">联系方式</a>
+        </div>
+    </nav>
+
+    <!-- 照片展示区 -->
+    <div class="swiper">
+        <div class="swiper-wrapper">
+            <div class="swiper-slide">
+                <img src="images/images1.jpg" alt="1">
+                <div class="slide-caption">我</div>
+            </div>
+            <div class="swiper-slide">
+                <img src="images/Beautiful.jpg" alt="照片2">
+                <div class="slide-caption">哇</div>
+            </div>
+            <div class="swiper-slide">
+                <img src="images/CCIBE.jpg" alt="照片3">
+                <div class="slide-caption">噻</div>
+            </div>
+            <div class="swiper-slide">
+                <img src="images/feiji.jpg" alt="照片4">
+                <div class="slide-caption"></div>
+            </div>
+        </div>
+        <div class="swiper-pagination"></div>
+        <div class="swiper-button-next"></div>
+        <div class="swiper-button-prev"></div>
+    </div>
+
+    <!-- 个人信息介绍区 -->
+    <section class="about" id="about">
+        <div class="card">
+            <h2>My rich routine</h2>
+            <p class="title">摄影爱好者</p>
+            <p class="description">欢迎来到我的照片展示页面。这里收集了我拍摄的一些照片，希望您能喜欢。</p>
+        </div>
+    </section>
+
+    <!-- 花朵展示区 -->
+    <section class="flowers" id="gallery">
+        <div class="card">
+            <h2>世界</h2>
+            <div class="flower-container">
+                <div class="flower-item main-image">
+                    <img src="images/sky.jpg" alt="天空">
+                    <div class="flower-caption">This is life</div>
+                </div>
+                <div class="qr-codes">
+                    <h3 class="qr-title">赞赏作者</h3>
+                    <div class="qr-container">
+                        <div class="qr-item">
+                            <img src="images/weixin.jpg" alt="微信二维码">
+                            <div class="qr-caption">微信</div>
+                        </div>
+                        <div class="qr-item">
+                            <img src="images/zhifubao.jpg" alt="支付宝二维码">
+                            <div class="qr-caption">支付宝</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 社交媒体链接 -->
+    <footer class="social-links" id="contact">
+        <a href="#" class="social-icon" id="weixinBtn"><i class="fab fa-weixin"></i></a>
+        <div class="phone-info">
+            <i class="fas fa-phone"></i>
+            <span class="phone-numbers">
+                18623527845<br>
+                15581262045
+            </span>
+        </div>
+    </footer>
+
+    <!-- 添���版权声明 -->
+    <div class="copyright">
+        <p>敬请广大用户尊重版权，本网站内容归作者本人所有，严禁不经协商进行盗用，共同维护良好的网络版权环境。</p>
+    </div>
+
+    <!-- 添加弹出层 -->
+    <div class="modal" id="weixinModal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <img src="images/gerenweixin.jpg" alt="个人微信二维码" class="modal-qr">
+            <p>扫码添加微信</p>
+        </div>
+    </div>
+
+    <!-- Swiper JS -->
+    <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html> 
