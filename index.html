@@ -4,12 +4,19 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>My rich routine</title>
-    <!-- Font Awesome CDN 改为 BootCDN -->
-    <link rel="stylesheet" href="https://cdn.bootcdn.net/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <!-- Google Fonts 改为 字节跳动静态资源库 -->
-    <link href="https://lf9-cdn-tos.bytecdntp.com/cdn/expire-1-M/Noto+Sans+SC/1.0.0/index.min.css" rel="stylesheet">
-    <!-- Swiper CSS 改为 BootCDN -->
-    <link rel="stylesheet" href="https://cdn.bootcdn.net/ajax/libs/Swiper/8.4.7/swiper-bundle.min.css">
+    <!-- 添加资源预加载 -->
+    <link rel="preload" href="images/images1.jpg" as="image">
+    <link rel="preload" href="images/Beautiful.jpg" as="image">
+    <link rel="preload" href="images/CCIBE.jpg" as="image">
+    <link rel="preload" href="images/feiji.jpg" as="image">
+    
+    <!-- 添加 defer 属性延迟加载 JS -->
+    <script src="https://cdn.bootcdn.net/ajax/libs/Swiper/8.4.7/swiper-bundle.min.js" defer></script>
+    <script src="script.js" defer></script>
+    
+    <!-- 优化 CSS 加载 -->
+    <link rel="stylesheet" href="https://cdn.bootcdn.net/ajax/libs/font-awesome/6.0.0/css/all.min.css" media="print" onload="this.media='all'">
+    <link rel="stylesheet" href="https://cdn.bootcdn.net/ajax/libs/Swiper/8.4.7/swiper-bundle.min.css" media="print" onload="this.media='all'">
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -27,19 +34,19 @@
     <div class="swiper">
         <div class="swiper-wrapper">
             <div class="swiper-slide">
-                <img src="images/images1.jpg" alt="1" loading="lazy">
+                <img src="images/images1.jpg" alt="1" loading="lazy" decoding="async">
                 <div class="slide-caption">我</div>
             </div>
             <div class="swiper-slide">
-                <img src="images/Beautiful.jpg" alt="照片2" loading="lazy">
+                <img src="images/Beautiful.jpg" alt="照片2" loading="lazy" decoding="async">
                 <div class="slide-caption">哇</div>
             </div>
             <div class="swiper-slide">
-                <img src="images/CCIBE.jpg" alt="照片3" loading="lazy">
+                <img src="images/CCIBE.jpg" alt="照片3" loading="lazy" decoding="async">
                 <div class="slide-caption">噻</div>
             </div>
             <div class="swiper-slide">
-                <img src="images/feiji.jpg" alt="照片4" loading="lazy">
+                <img src="images/feiji.jpg" alt="照片4" loading="lazy" decoding="async">
                 <div class="slide-caption"></div>
             </div>
         </div>
@@ -95,7 +102,7 @@
         </div>
     </footer>
 
-    <!-- 添加版权声明 -->
+    <!-- 添��版权声明 -->
     <div class="copyright">
         <p>敬请广大用户尊重版权，本网站内容归作者本人所有，严禁不经协商进行盗用，共同维护良好的网络版权环境。</p>
     </div>
@@ -108,9 +115,5 @@
             <p>扫码添加微信</p>
         </div>
     </div>
-
-    <!-- Swiper JS 改为 BootCDN -->
-    <script src="https://cdn.bootcdn.net/ajax/libs/Swiper/8.4.7/swiper-bundle.min.js"></script>
-    <script src="script.js"></script>
 </body>
 </html> 
