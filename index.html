@@ -38,6 +38,13 @@
     <!-- 延迟加载JS -->
     <script src="https://cdn.bootcdn.net/ajax/libs/Swiper/8.4.7/swiper-bundle.min.js" defer></script>
     <script src="script.js" defer></script>
+    
+    <!-- 预加载首屏关键图片 -->
+    <link rel="preload" as="image" href="images/images1.jpg">
+    <link rel="preload" as="image" href="images/Beautiful.jpg">
+    
+    <!-- 预加载字体图标，避免图标闪烁 -->
+    <link rel="preload" href="https://cdn.bootcdn.net/ajax/libs/font-awesome/6.0.0/webfonts/fa-solid-900.woff2" as="font" type="font/woff2" crossorigin>
 </head>
 <body>
     <!-- 导航栏 -->
@@ -267,7 +274,7 @@
     <div class="modal" id="douyinModal">
         <div class="modal-content">
             <span class="close">&times;</span>
-            <img src="images/douyin.jpg" alt="��音二维码" class="modal-qr" loading="lazy">
+            <img src="images/douyin.jpg" alt="抖音二维码" class="modal-qr" loading="lazy">
             <p>扫码关注抖音</p>
         </div>
     </div>
