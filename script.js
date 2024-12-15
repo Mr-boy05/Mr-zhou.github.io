@@ -515,33 +515,16 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 });
 
-// 检测WebP支持
-async function supportsWebP() {
-    if (!self.createImageBitmap) return false;
-    
-    const webpData = 'data:image/webp;base64,UklGRh4AAABXRUJQVlA4TBEAAAAvAAAAAAfQ//73v/+BiOh/AAA=';
-    const blob = await fetch(webpData).then(r => r.blob());
-    return createImageBitmap(blob).then(() => true, () => false);
-}
-
 // 优化图片加载
 if (isMobile) {
-    document.addEventListener('DOMContentLoaded', async function() {
-        const supportsWebp = await supportsWebP();
-        
+    document.addEventListener('DOMContentLoaded', function() {
         const imageObserver = new IntersectionObserver((entries, observer) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
                     const img = entry.target;
                     if (img.dataset.src) {
-                        // 根据支持情况选择WebP或JPG
-                        let src = img.dataset.src;
-                        if (supportsWebp) {
-                            src = src.replace(/\.(jpg|jpeg|png)$/, '.webp');
-                        }
-                        // 移动端使用较小的图片
-                        src = src.replace(/\.(webp|jpg|jpeg|png)$/, '-mobile.$1');
-                        img.src = src;
+                        // 直接使用原始图片
+                        img.src = img.dataset.src;
                         img.removeAttribute('data-src');
                     }
                     observer.unobserve(img);
