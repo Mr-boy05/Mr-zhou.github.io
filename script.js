@@ -196,7 +196,7 @@ document.addEventListener('DOMContentLoaded', function() {
     setInterval(updateBirthdayCountdown, 1000); // 每秒更新一次
 });
 
-// 添加节假日数据
+// 添加节假���数据
 const holidays = {
     '1-1': '元旦',
     '2-14': '情人节',
@@ -354,7 +354,7 @@ document.addEventListener('DOMContentLoaded', function() {
             yellowPasswordModal.style.display = 'none';
             yellowModal.style.display = 'flex';
         } else {
-            yellowError.textContent = '密码错误，请重试';
+            yellowError.textContent = '密码错��，请重试';
             yellowPassword.value = '';
         }
     }
@@ -509,22 +509,24 @@ document.addEventListener('DOMContentLoaded', function() {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
                 const img = entry.target;
-                // 检查是否需要懒加载
-                if (img.dataset.src) {
-                    img.src = img.dataset.src;
-                    img.removeAttribute('data-src');
-                }
-                // 图片加载完成后取消观察
-                observer.unobserve(img);
+                const src = img.getAttribute('data-src') || img.getAttribute('src');
+                
+                // 创建新图片预加载
+                const newImg = new Image();
+                newImg.onload = function() {
+                    img.src = src;
+                    img.classList.add('loaded');
+                    observer.unobserve(img);
+                };
+                newImg.src = src;
             }
         });
     }, {
-        // 提前加载
         rootMargin: '50px 0px',
         threshold: 0.1
     });
 
-    // 为所有懒加载图片添加观察器
+    // 为所有图片添加观察器
     document.querySelectorAll('img[loading="lazy"]').forEach(img => {
         imageObserver.observe(img);
     });
@@ -538,8 +540,32 @@ window.addEventListener('load', function() {
         lazy: {
             loadPrevNext: true,
             loadPrevNextAmount: 2,
-            loadOnTransitionStart: true
+            loadOnTransitionStart: true,
+            checkInView: true
         },
-        // ... 其他配置保持不变
+        speed: 500,
+        loop: true,
+        autoplay: {
+            delay: 5000,
+            disableOnInteraction: false,
+            pauseOnMouseEnter: true
+        },
+        pagination: {
+            el: '.swiper-pagination',
+            clickable: true
+        },
+        navigation: {
+            nextEl: '.swiper-button-next',
+            prevEl: '.swiper-button-prev'
+        }
     });
+});
+
+// 添加图片加载错误处理
+document.querySelectorAll('img').forEach(img => {
+    img.onerror = function() {
+        // 加载失败时显示占位图
+        this.src = 'images/placeholder.jpg';
+        this.classList.add('error');
+    };
 }); 
