@@ -28,3 +28,21 @@
 <FilesMatch "\.(jpg|jpeg|png|gif|webp)$">
     Header set Cache-Control "max-age=31536000, public"
 </FilesMatch> 
+
+# 图片缓存和压缩配置
+<IfModule mod_headers.c>
+    # 启用浏览器缓存
+    <FilesMatch "\.(jpg|jpeg|png|gif|webp)$">
+        Header set Cache-Control "max-age=31536000, public"
+        Header set Vary "Accept-Encoding"
+    </FilesMatch>
+</IfModule>
+
+# 启用图片压缩
+<IfModule mod_deflate.c>
+    AddOutputFilterByType DEFLATE image/svg+xml
+    AddOutputFilterByType DEFLATE image/x-icon
+</IfModule>
+
+# 添加图片类型支持
+AddType image/webp .webp
