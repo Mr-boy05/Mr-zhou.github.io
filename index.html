@@ -40,11 +40,15 @@
     <script src="script.js" defer></script>
     
     <!-- 预加载首屏关键图片 -->
-    <link rel="preload" as="image" href="images/images1.jpg">
+    <link rel="preload" as="image" href="images/images1.jpg" fetchpriority="high">
     <link rel="preload" as="image" href="images/Beautiful.jpg">
     
     <!-- 预加载字体图标，避免图标闪烁 -->
     <link rel="preload" href="https://cdn.bootcdn.net/ajax/libs/font-awesome/6.0.0/webfonts/fa-solid-900.woff2" as="font" type="font/woff2" crossorigin>
+    
+    <!-- 添加DNS预解析 -->
+    <link rel="dns-prefetch" href="images/">
+    <link rel="preconnect" href="images/" crossorigin>
 </head>
 <body>
     <!-- 导航栏 -->
@@ -64,7 +68,11 @@
     <div class="swiper">
         <div class="swiper-wrapper">
             <div class="swiper-slide">
-                <img src="images/images1.jpg" alt="1" fetchpriority="high">
+                <img src="images/images1.jpg" alt="1" 
+                    fetchpriority="high" 
+                    decoding="sync" 
+                    importance="high"
+                    loading="eager">
                 <div class="slide-caption">我</div>
             </div>
             <div class="swiper-slide">
@@ -236,7 +244,7 @@
 
     <!-- 添加版权声明 -->
     <div class="copyright">
-        <p>敬请广大用户重权，网站内容归作者本所有，严禁不经协商进行盗用，共同维护良好的网络版权环境。</p>
+        <p>敬请广大用户重权，网站内容归作者本所有，严禁不经协商进行盗用，共同维护良好的网络���权环境。</p>
     </div>
 
     <!-- 添加弹出层 -->
@@ -296,7 +304,7 @@
         <div class="modal-content">
             <span class="close">&times;</span>
             <h3>请输入密码</h3>
-            <p class="password-hint">密码为自己生日</p>
+            <p class="password-hint">密码为己生日</p>
             <input type="password" id="yellowPassword" class="password-input" placeholder="请输入密码">
             <button class="submit-btn" id="yellowSubmit">确认</button>
             <p class="error-message" id="yellowError"></p>
