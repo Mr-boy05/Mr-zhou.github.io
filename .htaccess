@@ -46,3 +46,46 @@
 
 # 添加图片类型支持
 AddType image/webp .webp
+
+# 移动端特定缓存和压缩
+<IfModule mod_headers.c>
+    # 检测移动设备
+    RewriteCond %{HTTP_USER_AGENT} "mobile|android|touch|iphone|ipad|tablet" [NC]
+    
+    # 移动端特定缓存策略
+    <FilesMatch "\.(jpg|jpeg|png|gif|webp)$">
+        Header set Cache-Control "max-age=2592000, public"
+    </FilesMatch>
+    
+    # 启用Keep-Alive
+    Header set Connection keep-alive
+</IfModule>
+
+# 移动端图片压缩
+<IfModule mod_deflate.c>
+    AddOutputFilterByType DEFLATE image/jpeg
+    AddOutputFilterByType DEFLATE image/png
+    AddOutputFilterByType DEFLATE image/gif
+</IfModule>
+
+# 添加WebP支持
+AddType image/webp .webp
+
+# WebP缓存设置
+<IfModule mod_expires.c>
+    ExpiresByType image/webp "access plus 1 year"
+</IfModule>
+
+# 根据浏览器支持情况提供WebP
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    RewriteCond %{HTTP_ACCEPT} image/webp
+    RewriteCond %{REQUEST_FILENAME} (.+)\.(jpe?g|png)$
+    RewriteCond %{REQUEST_FILENAME}\.webp -f
+    RewriteRule (.+)\.(jpe?g|png)$ $1.webp [T=image/webp,E=accept:1]
+</IfModule>
+
+# 设置WebP的Content-Type
+<IfModule mod_headers.c>
+    Header append Vary Accept env=REDIRECT_accept
+</IfModule>
