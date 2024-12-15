@@ -6,6 +6,7 @@
     ExpiresByType image/jpeg "access plus 1 year"
     ExpiresByType image/png "access plus 1 year"
     ExpiresByType image/webp "access plus 1 year"
+    ExpiresByType image/gif "access plus 1 year"
     
     # CSS和JavaScript缓存1月
     ExpiresByType text/css "access plus 1 month"
@@ -19,4 +20,11 @@
 # 启用GZIP压缩
 <IfModule mod_deflate.c>
     AddOutputFilterByType DEFLATE text/html text/plain text/css application/javascript application/x-javascript text/javascript
+    AddOutputFilterByType DEFLATE image/svg+xml
+    AddOutputFilterByType DEFLATE image/x-icon
 </IfModule> 
+
+# 启用浏览器缓存
+<FilesMatch "\.(jpg|jpeg|png|gif|webp)$">
+    Header set Cache-Control "max-age=31536000, public"
+</FilesMatch> 
