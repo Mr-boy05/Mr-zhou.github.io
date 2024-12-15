@@ -5,48 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>My rich routine</title>
     
-    <!-- DNS预解析 -->
-    <link rel="dns-prefetch" href="https://cdn.bootcdn.net">
-    <link rel="dns-prefetch" href="https://cdn.jsdelivr.net">
-    
-    <!-- 预连接 -->
-    <link rel="preconnect" href="https://cdn.bootcdn.net" crossorigin>
-    <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
-    
-    <!-- 添加网站图标 -->
-    <link rel="icon" type="image/x-icon" href="favicon.ico">
-    <link rel="apple-touch-icon" href="favicon.png">
-    
-    <!-- 关键资源预加载 -->
-    <link rel="preload" href="images/images1.jpg" as="image">
-    <link rel="preload" href="images/Beautiful.jpg" as="image">
-    <link rel="preload" href="images/CCIBE.jpg" as="image">
-    <link rel="preload" href="images/feiji.jpg" as="image">
-    <link rel="preload" href="images/1H.jpg" as="image">
-    <link rel="preload" href="images/1w.jpg" as="image">
-    <link rel="preload" href="images/1C.jpg" as="image">
-    
-    <!-- 优化CSS加载 -->
-    <link rel="stylesheet" href="https://cdn.bootcdn.net/ajax/libs/font-awesome/6.0.0/css/all.min.css" media="print" onload="this.media='all'">
-    <link rel="stylesheet" href="https://cdn.bootcdn.net/ajax/libs/Swiper/8.4.7/swiper-bundle.min.css" media="print" onload="this.media='all'">
-    <link rel="stylesheet" href="styles.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/getgridea/gridea-theme-simple@master/assets/media/fonts/YouSheBiaoTiHei.css" media="print" onload="this.media='all'">
-    
-    <!-- 添加关键CSS内联 -->
+    <!-- 关键CSS内联 -->
     <style>
-        /* 添加首屏关键CSS */
         :root {
             --primary-color: #4a90e2;
-            --secondary-color: #e8f4ff;
-            --text-color: #333;
             --bg-color: #f0f8ff;
         }
-        
-        body {
-            margin: 0;
-            font-family: 'Noto Sans SC', sans-serif;
-        }
-        
+        body { margin: 0; }
         .navbar {
             position: fixed;
             top: 0;
@@ -55,6 +20,20 @@
             z-index: 1000;
         }
     </style>
+    
+    <!-- DNS预解析和预连接 -->
+    <link rel="dns-prefetch" href="https://cdn.bootcdn.net">
+    <link rel="preconnect" href="https://cdn.bootcdn.net" crossorigin>
+    
+    <!-- 预加载关键资源 -->
+    <link rel="preload" href="styles.css" as="style">
+    <link rel="preload" href="script.js" as="script">
+    <link rel="preload" as="font" href="https://cdn.jsdelivr.net/gh/getgridea/gridea-theme-simple@master/assets/media/fonts/YouSheBiaoTiHei.woff2" crossorigin>
+    
+    <!-- 异步加载非关键CSS -->
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdn.bootcdn.net/ajax/libs/font-awesome/6.0.0/css/all.min.css" media="print" onload="this.media='all'">
+    <link rel="stylesheet" href="https://cdn.bootcdn.net/ajax/libs/Swiper/8.4.7/swiper-bundle.min.css" media="print" onload="this.media='all'">
     
     <!-- 延迟加载JS -->
     <script src="https://cdn.bootcdn.net/ajax/libs/Swiper/8.4.7/swiper-bundle.min.js" defer></script>
@@ -213,7 +192,7 @@
         </div>
     </section>
 
-    <!-- 添加蛋糕 -->
+    <!-- 添加���糕 -->
     <div class="cake-container">
         <div class="cake">
             <div class="cake-top"></div>
@@ -250,7 +229,7 @@
 
     <!-- 添加版权声明 -->
     <div class="copyright">
-        <p>敬请广大用户重权，本网站内容归作者本所有，严禁不经协商进行盗用，共同维护良好的网络版权环境。</p>
+        <p>敬请广大用户重权，��网站内容归作者本所有，严禁不经协商进行盗用，共同维护良好的网络版权环境。</p>
     </div>
 
     <!-- 添加弹出层 -->
