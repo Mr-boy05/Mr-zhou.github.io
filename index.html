@@ -5,33 +5,71 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>My rich routine</title>
     
+    <!-- DNS预解析 -->
+    <link rel="dns-prefetch" href="https://cdn.bootcdn.net">
+    <link rel="dns-prefetch" href="https://cdn.jsdelivr.net">
+    
+    <!-- 预连接 -->
+    <link rel="preconnect" href="https://cdn.bootcdn.net" crossorigin>
+    <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+    
     <!-- 添加网站图标 -->
     <link rel="icon" type="image/x-icon" href="favicon.ico">
-    <!-- 为 Apple 设备添加图标 -->
     <link rel="apple-touch-icon" href="favicon.png">
     
-    <!-- 添加资源预加载 -->
+    <!-- 关键资源预加载 -->
     <link rel="preload" href="images/images1.jpg" as="image">
     <link rel="preload" href="images/Beautiful.jpg" as="image">
     <link rel="preload" href="images/CCIBE.jpg" as="image">
     <link rel="preload" href="images/feiji.jpg" as="image">
+    <link rel="preload" href="images/1H.jpg" as="image">
+    <link rel="preload" href="images/1w.jpg" as="image">
+    <link rel="preload" href="images/1C.jpg" as="image">
     
-    <!-- 添加 defer 属性延迟加载 JS -->
-    <script src="https://cdn.bootcdn.net/ajax/libs/Swiper/8.4.7/swiper-bundle.min.js" defer></script>
-    <script src="script.js" defer></script>
-    
-    <!-- 优化 CSS 加载 -->
+    <!-- 优化CSS加载 -->
     <link rel="stylesheet" href="https://cdn.bootcdn.net/ajax/libs/font-awesome/6.0.0/css/all.min.css" media="print" onload="this.media='all'">
     <link rel="stylesheet" href="https://cdn.bootcdn.net/ajax/libs/Swiper/8.4.7/swiper-bundle.min.css" media="print" onload="this.media='all'">
     <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/getgridea/gridea-theme-simple@master/assets/media/fonts/YouSheBiaoTiHei.css" media="print" onload="this.media='all'">
+    
+    <!-- 添加关键CSS内联 -->
+    <style>
+        /* 添加首屏关键CSS */
+        :root {
+            --primary-color: #4a90e2;
+            --secondary-color: #e8f4ff;
+            --text-color: #333;
+            --bg-color: #f0f8ff;
+        }
+        
+        body {
+            margin: 0;
+            font-family: 'Noto Sans SC', sans-serif;
+        }
+        
+        .navbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(240, 248, 255, 0.95);
+            z-index: 1000;
+        }
+    </style>
+    
+    <!-- 延迟加载JS -->
+    <script src="https://cdn.bootcdn.net/ajax/libs/Swiper/8.4.7/swiper-bundle.min.js" defer></script>
+    <script src="script.js" defer></script>
 </head>
 <body>
     <!-- 导航栏 -->
     <nav class="navbar">
-        <div class="nav-brand">My rich routine</div>
+        <div class="nav-brand">
+            My rich routine
+            <span class="subtitle">无限进步</span>
+        </div>
         <div class="nav-links">
             <a href="#about">关于我</a>
-            <a href="#gallery">作品集</a>
+            <a href="#photo-wall">作品集</a>
             <a href="#contact">联系方式</a>
         </div>
     </nav>
@@ -53,7 +91,7 @@
             </div>
             <div class="swiper-slide">
                 <img src="images/feiji.jpg" alt="照片4" loading="lazy" decoding="async">
-                <div class="slide-caption"></div>
+                <div class="slide-caption">fly</div>
             </div>
         </div>
         <div class="swiper-pagination"></div>
@@ -63,12 +101,130 @@
 
     <!-- 个人信息介绍区 -->
     <section class="about" id="about">
-        <div class="card">
-            <h2>My rich routine</h2>
-            <p class="title">摄影爱好者</p>
-            <p class="description">欢迎来到我的照片展示页面。这里收集了我拍摄的一些照片���希望您能喜欢。</p>
+        <!-- 个人信息卡片 -->
+        <div class="card info-card">
+            <h2>My good friend</h2>
+            <p class="title">他们分别是：</p>
+            <div class="friends-container">
+                <p class="friends-list">
+                    <span class="friend-link" id="blueBtn">小蓝</span>、
+                    <span class="friend-link" id="yellowBtn">小黄</span>、
+                    <span class="friend-link" id="blackBtn">小黑</span>...
+                </p>
+                <button class="more-btn" id="moreBtn">更多</button>
+            </div>
+            <div class="card-divider"></div>
+            <p class="boss-text">大Boss</p>
+            <p class="title boss-subtitle">他们分别是：</p>
+            <button class="load-more-btn" id="loadMoreBtn">点此加载更多</button>
+        </div>
+        
+        <!-- 时间信息卡片 -->
+        <div class="card time-card">
+            <!-- 生日倒计时 -->
+            <div class="birthday-countdown">
+                <p class="countdown-title">
+                    距离生<i class="fas fa-birthday-cake"></i>日还有
+                </p>
+                <div id="countdown" class="countdown"></div>
+            </div>
+            <!-- 实时日历 -->
+            <div class="real-time-calendar">
+                <div id="calendar-month-year" class="calendar-month-year"></div>
+                <div class="calendar-days-grid">
+                    <!-- 日期网格会通过JavaScript动态生成 -->
+                </div>
+            </div>
         </div>
     </section>
+
+    <!-- 添加摄影爱好者卡片 -->
+    <section class="photographer-intro">
+        <div class="card">
+            <h2>My rich routine</h2>
+            <p class="title">影爱好者</p>
+            <p class="description">欢迎来到我的照片展示页面。这里收集了我拍摄的一些照片，希望您能喜欢。</p>
+        </div>
+    </section>
+
+    <!-- 添加照片墙 -->
+    <section class="photo-wall" id="photo-wall">
+        <div class="photo-grid">
+            <div class="photo-item">
+                <img src="images/1p.jpg" alt="照片1" loading="lazy">
+            </div>
+            <div class="photo-item">
+                <img src="images/2p.jpg" alt="照片2" loading="lazy">
+            </div>
+            <div class="photo-item">
+                <img src="images/3p.jpg" alt="照片3" loading="lazy">
+            </div>
+            <div class="photo-item">
+                <img src="images/4p.jpg" alt="片4" loading="lazy">
+            </div>
+            <div class="photo-item">
+                <img src="images/5p.jpg" alt="照片5" loading="lazy">
+            </div>
+            <div class="photo-item">
+                <img src="images/6p.jpg" alt="照片6" loading="lazy">
+            </div>
+            <div class="photo-item">
+                <img src="images/7p.jpg" alt="照片7" loading="lazy">
+            </div>
+            <div class="photo-item">
+                <img src="images/8p.jpg" alt="照片8" loading="lazy">
+            </div>
+            <div class="photo-item">
+                <img src="images/9p.jpg" alt="照片9" loading="lazy">
+            </div>
+            <div class="photo-item">
+                <img src="images/10p.jpg" alt="照片10" loading="lazy">
+            </div>
+            <div class="photo-item">
+                <img src="images/11p.jpg" alt="照片11" loading="lazy">
+            </div>
+            <div class="photo-item">
+                <img src="images/12p.jpg" alt="照片12" loading="lazy">
+            </div>
+            <div class="photo-item">
+                <img src="images/13p.jpg" alt="照片13" loading="lazy">
+            </div>
+            <div class="photo-item">
+                <img src="images/14p.jpg" alt="照片14" loading="lazy">
+            </div>
+            <div class="photo-item">
+                <img src="images/15p.jpg" alt="照片15" loading="lazy">
+            </div>
+            <div class="photo-item">
+                <img src="images/16p.jpg" alt="照片16" loading="lazy">
+            </div>
+            <div class="photo-item">
+                <img src="images/17p.jpg" alt="照片17" loading="lazy">
+            </div>
+            <div class="photo-item">
+                <img src="images/18p.jpg" alt="照片18" loading="lazy">
+            </div>
+            <div class="photo-item">
+                <img src="images/19p.jpg" alt="片19" loading="lazy">
+            </div>
+            <div class="photo-item">
+                <img src="images/20p.jpg" alt="照片20" loading="lazy">
+            </div>
+        </div>
+    </section>
+
+    <!-- 添加蛋糕 -->
+    <div class="cake-container">
+        <div class="cake">
+            <div class="cake-top"></div>
+            <div class="cake-middle"></div>
+            <div class="cake-bottom"></div>
+            <div class="candle">
+                <div class="flame"></div>
+            </div>
+            <div class="plate"></div>
+        </div>
+    </div>
 
     <!-- 花朵展示区 -->
     <section class="flowers" id="gallery">
@@ -79,19 +235,6 @@
                     <img src="images/sky.jpg" alt="天空" loading="lazy">
                     <div class="flower-caption">This is life</div>
                 </div>
-                <div class="qr-codes">
-                    <h3 class="qr-title">赞赏作者</h3>
-                    <div class="qr-container">
-                        <div class="qr-item">
-                            <img src="images/weixin.jpg" alt="微信二维码" loading="lazy">
-                            <div class="qr-caption">微信</div>
-                        </div>
-                        <div class="qr-item">
-                            <img src="images/zhifubao.jpg" alt="支付宝二维码" loading="lazy">
-                            <div class="qr-caption">支付宝</div>
-                        </div>
-                    </div>
-                </div>
             </div>
         </div>
     </section>
@@ -99,26 +242,129 @@
     <!-- 社交媒体链接 -->
     <footer class="social-links" id="contact">
         <a href="#" class="social-icon" id="weixinBtn"><i class="fab fa-weixin"></i></a>
-        <div class="phone-info">
+        <a href="#" class="social-icon" id="douyinBtn"><i class="fab fa-tiktok"></i></a>
+        <a href="#" class="social-icon" id="phoneBtn">
             <i class="fas fa-phone"></i>
-            <span class="phone-numbers">
-                18623527845<br>
-                15581262045
-            </span>
-        </div>
+        </a>
     </footer>
 
     <!-- 添加版权声明 -->
     <div class="copyright">
-        <p>敬请广大用户尊重版权，本网站内容归作者本人所有，严禁不经协商进行盗用，共同维护良好的网络版权环境。</p>
+        <p>敬请广大用户重权，本网站内容归作者本所有，严禁不经协商进行盗用，共同维护良好的网络版权环境。</p>
     </div>
 
     <!-- 添加弹出层 -->
     <div class="modal" id="weixinModal">
         <div class="modal-content">
             <span class="close">&times;</span>
-            <img src="images/gerenweixin.jpg" alt="个人微信二维码" class="modal-qr" loading="lazy">
+            <img src="images/gerenweixin.jpg" alt="微信二维码" class="modal-qr" loading="lazy">
             <p>扫码添加微信</p>
+        </div>
+    </div>
+
+    <!-- 在body标签结束前添加 -->
+    <div class="photo-modal" id="photoModal">
+        <span class="photo-close">&times;</span>
+        <img class="photo-modal-content" id="modalImg">
+    </div>
+
+    <!-- 添加弹出层 -->
+    <div class="modal" id="moreModal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <p>就不告诉你，略略略 😋</p>
+        </div>
+    </div>
+
+    <!-- 添加弹出层 -->
+    <div class="modal" id="loadMoreModal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <p>放过俺吧，这是我的秘密 😨</p>
+        </div>
+    </div>
+
+    <!-- 添加抖音弹出层 -->
+    <div class="modal" id="douyinModal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <img src="images/douyin.jpg" alt="抖音二维码" class="modal-qr" loading="lazy">
+            <p>扫码关注抖音</p>
+        </div>
+    </div>
+
+    <!-- 添加电话弹出层 -->
+    <div class="modal" id="phoneModal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h3>联系电话</h3>
+            <p class="phone-numbers">
+                18623527845<br>
+                15581262045
+            </p>
+        </div>
+    </div>
+
+    <!-- 添加小黄的密码验证弹出层 -->
+    <div class="modal" id="yellowPasswordModal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h3>请输入密码</h3>
+            <p class="password-hint">密码为自己生日</p>
+            <input type="password" id="yellowPassword" class="password-input" placeholder="请输入密码">
+            <button class="submit-btn" id="yellowSubmit">确认</button>
+            <p class="error-message" id="yellowError"></p>
+        </div>
+    </div>
+
+    <!-- 添加小黄的照片弹出层 -->
+    <div class="modal" id="yellowModal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <img src="images/1w.jpg" alt="此小黄非彼小黄" class="modal-qr" loading="lazy">
+            <p>此小黄非彼小黄 😋</p>
+        </div>
+    </div>
+
+    <!-- 添加小蓝的密码验证弹出层 -->
+    <div class="modal" id="bluePasswordModal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h3>请输入密码</h3>
+            <p class="password-hint">密码为自己生日</p>
+            <input type="password" id="bluePassword" class="password-input" placeholder="请输入密码">
+            <button class="submit-btn" id="blueSubmit">确认</button>
+            <p class="error-message" id="blueError"></p>
+        </div>
+    </div>
+
+    <!-- 添加小蓝的照片弹出层 -->
+    <div class="modal" id="blueModal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <img src="images/1H.jpg" alt="小蓝的照片" class="modal-qr" loading="lazy">
+            <p>此小蓝非彼小蓝 😋</p>
+        </div>
+    </div>
+
+    <!-- 添加小黑的密码验证弹出层 -->
+    <div class="modal" id="blackPasswordModal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h3>请输入密码</h3>
+            <p class="password-hint">密码为自己生日</p>
+            <input type="password" id="blackPassword" class="password-input" placeholder="请输入密码">
+            <button class="submit-btn" id="blackSubmit">确认</button>
+            <p class="error-message" id="blackError"></p>
+        </div>
+    </div>
+
+    <!-- 添加小黑的照片弹出层 -->
+    <div class="modal" id="blackModal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <img src="images/1C.jpg" alt="小黑的照片" class="modal-qr" loading="lazy">
+            <p>此小黑非彼小黑 😋</p>
         </div>
     </div>
 </body>
