@@ -1,3 +1,6 @@
+// 移动端检测
+const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+
 // 延迟初始化 Swiper
 window.addEventListener('load', function() {
     const swiper = new Swiper('.swiper', {
@@ -9,11 +12,11 @@ window.addEventListener('load', function() {
             waitForTransition: true
         },
         // 预加载图片
-        preloadImages: true,
+        preloadImages: isMobile ? false : true,
         updateOnImagesReady: true,
         lazy: {
             loadPrevNext: true,
-            loadPrevNextAmount: 1,
+            loadPrevNextAmount: isMobile ? 1 : 2,
             loadOnTransitionStart: true,
             checkInView: true
         },
@@ -25,6 +28,12 @@ window.addEventListener('load', function() {
             nextEl: '.swiper-button-next',
             prevEl: '.swiper-button-prev',
         },
+        // 移动端性能优化
+        observer: true,
+        observeParents: true,
+        watchSlidesProgress: true,
+        // 减少移动端动画
+        speed: isMobile ? 300 : 500,
     });
 });
 
@@ -421,7 +430,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
     
-    // 密码输入框回车事件
+    // 密码输入框回车事���
     bluePassword.addEventListener('keypress', function(e) {
         if (e.key === 'Enter') {
             blueSubmit.click();
@@ -459,7 +468,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const blackSubmit = document.getElementById('blackSubmit');
     const blackError = document.getElementById('blackError');
     
-    const correctPassword = '051012'; // 设置正确的密码
+    const correctPassword = '051012'; // ���置正确的密码
     
     // 点击小黑显示密码输入弹窗
     blackBtn.onclick = function() {
@@ -506,49 +515,62 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 });
 
-// 优化图片加载
-document.addEventListener('DOMContentLoaded', function() {
-    // 使用 Intersection Observer API 优化懒加载
-    const imageObserver = new IntersectionObserver((entries, observer) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                const img = entry.target;
-                const src = img.getAttribute('data-src') || img.getAttribute('src');
-                
-                // 创建新图片预加载
-                const newImg = new Image();
-                newImg.onload = function() {
-                    img.src = src;
-                    img.classList.add('loaded');
-                    observer.unobserve(img);
-                };
-                newImg.src = src;
-            }
-        });
-    }, {
-        rootMargin: '50px 0px',
-        threshold: 0.1
-    });
+// 检测WebP支持
+async function supportsWebP() {
+    if (!self.createImageBitmap) return false;
+    
+    const webpData = 'data:image/webp;base64,UklGRh4AAABXRUJQVlA4TBEAAAAvAAAAAAfQ//73v/+BiOh/AAA=';
+    const blob = await fetch(webpData).then(r => r.blob());
+    return createImageBitmap(blob).then(() => true, () => false);
+}
 
-    // 为所有图片添加观察器
-    document.querySelectorAll('img[loading="lazy"]').forEach(img => {
-        imageObserver.observe(img);
+// 优化图片加载
+if (isMobile) {
+    document.addEventListener('DOMContentLoaded', async function() {
+        const supportsWebp = await supportsWebP();
+        
+        const imageObserver = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const img = entry.target;
+                    if (img.dataset.src) {
+                        // 根据支持情况选择WebP或JPG
+                        let src = img.dataset.src;
+                        if (supportsWebp) {
+                            src = src.replace(/\.(jpg|jpeg|png)$/, '.webp');
+                        }
+                        // 移动端使用较小的图片
+                        src = src.replace(/\.(webp|jpg|jpeg|png)$/, '-mobile.$1');
+                        img.src = src;
+                        img.removeAttribute('data-src');
+                    }
+                    observer.unobserve(img);
+                }
+            });
+        }, {
+            rootMargin: '50px 0px',
+            threshold: 0.1
+        });
+
+        document.querySelectorAll('img[loading="lazy"]').forEach(img => {
+            imageObserver.observe(img);
+        });
     });
-});
+}
 
 // 优化Swiper初始化
 window.addEventListener('load', function() {
     const swiper = new Swiper('.swiper', {
         // 预加载优化
-        preloadImages: true,
+        preloadImages: isMobile ? false : true,
         updateOnImagesReady: true,
         lazy: {
             loadPrevNext: true,
-            loadPrevNextAmount: 1,
+            loadPrevNextAmount: isMobile ? 1 : 2,
             loadOnTransitionStart: true,
             checkInView: true
         },
-        speed: 500,
+        speed: isMobile ? 300 : 500,
         loop: true,
         autoplay: {
             delay: 5000,
