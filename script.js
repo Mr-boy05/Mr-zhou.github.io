@@ -8,18 +8,11 @@ window.addEventListener('load', function() {
         autoplay: {
             delay: 5000,
             disableOnInteraction: false,
-            // 添加延迟自动播放
-            waitForTransition: true
         },
-        // 预加载图片
-        preloadImages: isMobile ? false : true,
-        updateOnImagesReady: true,
-        lazy: {
-            loadPrevNext: true,
-            loadPrevNextAmount: isMobile ? 1 : 2,
-            loadOnTransitionStart: true,
-            checkInView: true
-        },
+        // 修改预加载配置
+        preloadImages: true,
+        lazy: false,  // 禁用懒加载
+        watchSlidesProgress: true,
         pagination: {
             el: '.swiper-pagination',
             clickable: true,
@@ -27,13 +20,7 @@ window.addEventListener('load', function() {
         navigation: {
             nextEl: '.swiper-button-next',
             prevEl: '.swiper-button-prev',
-        },
-        // 移动端性能优化
-        observer: true,
-        observeParents: true,
-        watchSlidesProgress: true,
-        // 减少移动端动画
-        speed: isMobile ? 300 : 500,
+        }
     });
 });
 
@@ -129,47 +116,13 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 
-// 照片墙点击查看大图
-document.addEventListener('DOMContentLoaded', function() {
-    const modal = document.getElementById('photoModal');
-    const modalImg = document.getElementById('modalImg');
-    const closeBtn = document.getElementsByClassName('photo-close')[0];
-    
-    // 为所有照片添加点击事件
-    document.querySelectorAll('.photo-item img').forEach(img => {
-        img.onclick = function() {
-            modal.style.display = "block";
-            modalImg.src = this.src;
-        }
-    });
-    
-    // 点击关闭按钮关闭模态框
-    closeBtn.onclick = function() {
-        modal.style.display = "none";
-    }
-    
-    // 点击模态框外部关闭
-    modal.onclick = function(event) {
-        if (event.target === modal) {
-            modal.style.display = "none";
-        }
-    }
-    
-    // ESC键关闭模态框
-    document.addEventListener('keydown', function(event) {
-        if (event.key === 'Escape' && modal.style.display === "block") {
-            modal.style.display = "none";
-        }
-    });
-});
-
 // 生日倒计时功能
 function updateBirthdayCountdown() {
     const now = new Date();
     const currentYear = now.getFullYear();
     const birthday = new Date(currentYear, 11, 21); // 12月21日
     
-    // 获取倒计时显示元素
+    // 获取倒计时显示素
     const countdownElement = document.getElementById('countdown');
     
     // 检查是否是生日当天
@@ -284,7 +237,7 @@ document.addEventListener('DOMContentLoaded', function() {
         moreModal.style.display = 'none';
     }
     
-    // 点击弹窗外部关闭
+    // 点击弹窗外关闭
     window.onclick = function(event) {
         if (event.target == moreModal) {
             moreModal.style.display = 'none';
@@ -430,7 +383,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
     
-    // 密码输入框回车事���
+    // 密码输入框回车事件
     bluePassword.addEventListener('keypress', function(e) {
         if (e.key === 'Enter') {
             blueSubmit.click();
@@ -468,7 +421,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const blackSubmit = document.getElementById('blackSubmit');
     const blackError = document.getElementById('blackError');
     
-    const correctPassword = '051012'; // ���置正确的密码
+    const correctPassword = '051012'; // 设置正确的密码
     
     // 点击小黑显示密码输入弹窗
     blackBtn.onclick = function() {
@@ -516,59 +469,54 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 // 优化图片加载
-if (isMobile) {
-    document.addEventListener('DOMContentLoaded', function() {
-        const imageObserver = new IntersectionObserver((entries, observer) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    const img = entry.target;
-                    if (img.dataset.src) {
-                        // 直接使用原始图片
+document.addEventListener('DOMContentLoaded', function() {
+    const imageObserver = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                const img = entry.target;
+                if (img.dataset.src) {
+                    const newImg = new Image();
+                    newImg.onload = function() {
                         img.src = img.dataset.src;
-                        img.removeAttribute('data-src');
-                    }
-                    observer.unobserve(img);
+                        img.classList.add('loaded');
+                        observer.unobserve(img);
+                    };
+                    newImg.src = img.dataset.src;
                 }
-            });
-        }, {
-            rootMargin: '50px 0px',
-            threshold: 0.1
+            }
         });
-
-        document.querySelectorAll('img[loading="lazy"]').forEach(img => {
-            imageObserver.observe(img);
-        });
+    }, {
+        rootMargin: '50px 0px',
+        threshold: 0.1
     });
-}
 
-// 优化Swiper初始化
-window.addEventListener('load', function() {
-    const swiper = new Swiper('.swiper', {
-        // 预加载优化
-        preloadImages: isMobile ? false : true,
-        updateOnImagesReady: true,
-        lazy: {
-            loadPrevNext: true,
-            loadPrevNextAmount: isMobile ? 1 : 2,
-            loadOnTransitionStart: true,
-            checkInView: true
-        },
-        speed: isMobile ? 300 : 500,
-        loop: true,
-        autoplay: {
-            delay: 5000,
-            disableOnInteraction: false,
-            pauseOnMouseEnter: true
-        },
-        pagination: {
-            el: '.swiper-pagination',
-            clickable: true
-        },
-        navigation: {
-            nextEl: '.swiper-button-next',
-            prevEl: '.swiper-button-prev'
+    // 优先加载可视区域的图片
+    document.querySelectorAll('img[loading="lazy"]').forEach(img => {
+        if (img.getBoundingClientRect().top < window.innerHeight) {
+            imageObserver.observe(img);
+        } else {
+            setTimeout(() => {
+                imageObserver.observe(img);
+            }, 1000);
         }
     });
+});
+
+// 优化Swiper配置
+const swiper = new Swiper('.swiper', {
+    preloadImages: false,
+    lazy: {
+        loadPrevNext: true,
+        loadPrevNextAmount: 1,
+        loadOnTransitionStart: true
+    },
+    speed: isMobile ? 300 : 500,
+    loop: true,
+    autoplay: {
+        delay: 5000,
+        disableOnInteraction: false,
+        pauseOnMouseEnter: true
+    }
 });
 
 // 添加图片加载错误处理
@@ -578,4 +526,29 @@ document.querySelectorAll('img').forEach(img => {
         this.src = 'images/placeholder.jpg';
         this.classList.add('error');
     };
+});
+
+// 作者图片点击事件
+document.addEventListener('DOMContentLoaded', function() {
+    const aboutLink = document.querySelector('a[href="#about"]');
+    const aboutModal = document.getElementById('aboutModal');
+    const closeAboutBtn = aboutModal.querySelector('.close');
+    
+    // 点击"关于"链接时显示弹窗
+    aboutLink.onclick = function(e) {
+        e.preventDefault();  // 阻止默认的滚动行为
+        aboutModal.style.display = 'flex';
+    }
+    
+    // 点击关闭按钮关闭弹窗
+    closeAboutBtn.onclick = function() {
+        aboutModal.style.display = 'none';
+    }
+    
+    // 点击弹窗外部关闭
+    window.onclick = function(event) {
+        if (event.target == aboutModal) {
+            aboutModal.style.display = 'none';
+        }
+    }
 }); 
