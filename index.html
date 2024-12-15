@@ -2,8 +2,8 @@
 <html lang="zh">
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="x-dns-prefetch-control" content="on">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta http-equiv="x-dns-prefetch-control" content="on">
     <title>My rich routine</title>
     
     <!-- 关键CSS内联 -->
@@ -12,6 +12,7 @@
             --primary-color: #4a90e2;
             --bg-color: #f0f8ff;
         }
+        /* 添加更多关键CSS */
         body { margin: 0; }
         .navbar {
             position: fixed;
@@ -20,16 +21,20 @@
             background: rgba(240, 248, 255, 0.95);
             z-index: 1000;
         }
+        .swiper { opacity: 0; }
+        .swiper.loaded { opacity: 1; }
     </style>
     
     <!-- DNS预解析和预连接 -->
     <link rel="dns-prefetch" href="https://cdn.bootcdn.net">
+    <link rel="dns-prefetch" href="images/">
     <link rel="preconnect" href="https://cdn.bootcdn.net" crossorigin>
+    <link rel="preconnect" href="images/" crossorigin>
     
     <!-- 预加载关键资源 -->
     <link rel="preload" href="styles.css" as="style">
     <link rel="preload" href="script.js" as="script">
-    <link rel="preload" as="font" href="https://cdn.jsdelivr.net/gh/getgridea/gridea-theme-simple@master/assets/media/fonts/YouSheBiaoTiHei.woff2" crossorigin>
+    <link rel="preload" href="images/Beautiful.jpg" as="image">
     
     <!-- 异步加载非关键CSS -->
     <link rel="stylesheet" href="styles.css">
@@ -39,16 +44,6 @@
     <!-- 延迟加载JS -->
     <script src="https://cdn.bootcdn.net/ajax/libs/Swiper/8.4.7/swiper-bundle.min.js" defer></script>
     <script src="script.js" defer></script>
-    
-    <!-- 预加载首屏关键图片 -->
-    <link rel="preload" as="image" href="images/images1.jpg" fetchpriority="high">
-    
-    <!-- 移动端字体优化 -->
-    <link rel="preload" href="https://cdn.bootcdn.net/ajax/libs/font-awesome/6.0.0/webfonts/fa-solid-900.woff2" as="font" type="font/woff2" crossorigin>
-    
-    <!-- 添加DNS预解析 -->
-    <link rel="dns-prefetch" href="images/">
-    <link rel="preconnect" href="images/" crossorigin>
 </head>
 <body>
     <!-- 导航栏 -->
@@ -58,7 +53,7 @@
             <span class="subtitle">无限进步</span>
         </div>
         <div class="nav-links">
-            <a href="#about">关于我</a>
+            <a href="#about">关于</a>
             <a href="#photo-wall">作品集</a>
             <a href="#contact">联系方式</a>
         </div>
@@ -68,14 +63,12 @@
     <div class="swiper">
         <div class="swiper-wrapper">
             <div class="swiper-slide">
-                <img src="images/images1.jpg" alt="1" 
-                    width="800" 
-                    height="600"
-                    fetchpriority="high">
-                <div class="slide-caption">我</div>
-            </div>
-            <div class="swiper-slide">
-                <img data-src="images/Beautiful.jpg" alt="照片2" loading="lazy" class="swiper-lazy">
+                <img data-src="images/Beautiful.jpg" 
+                    alt="照片2" 
+                    loading="lazy" 
+                    class="swiper-lazy"
+                    width="800"
+                    height="600">
                 <div class="swiper-lazy-preloader"></div>
                 <div class="slide-caption">哇</div>
             </div>
@@ -103,14 +96,14 @@
                 <p class="friends-list">
                     <span class="friend-link" id="blueBtn">小蓝</span>、
                     <span class="friend-link" id="yellowBtn">小黄</span>、
-                    <span class="friend-link" id="blackBtn">小黑</span>...
+                    <span class="friend-link" id="blackBtn">小���</span>...
                 </p>
                 <button class="more-btn" id="moreBtn">更多</button>
             </div>
             <div class="card-divider"></div>
             <p class="boss-text">大Boss</p>
             <p class="title boss-subtitle">他们分别是：</p>
-            <button class="load-more-btn" id="loadMoreBtn">点此加载更多</button>
+            <button class="load-more-btn" id="loadMoreBtn">���此加载更多</button>
         </div>
         
         <!-- 时间信息卡片 -->
@@ -136,7 +129,7 @@
     <section class="photographer-intro">
         <div class="card">
             <h2>My rich routine</h2>
-            <p class="title">摄影爱好者</p>
+            <p class="title">摄���爱好者</p>
             <p class="description">欢迎来到我的照片展示页面。这里收集了我拍摄的一些照片，希望您能喜欢。</p>
         </div>
     </section>
@@ -145,7 +138,11 @@
     <section class="photo-wall" id="photo-wall">
         <div class="photo-grid">
             <div class="photo-item">
-                <img src="images/1p.jpg" alt="照片1" loading="lazy">
+                <img data-src="images/1p.jpg" 
+                    alt="照片1" 
+                    loading="lazy"
+                    width="300"
+                    height="300">
             </div>
             <div class="photo-item">
                 <img src="images/2p.jpg" alt="照片2" loading="lazy">
@@ -244,7 +241,7 @@
 
     <!-- 添加版权声明 -->
     <div class="copyright">
-        <p>敬请广大用户重权，网站内容归作者本所有，严禁不经协商进行盗用，共同维护良好的网络权环境。</p>
+        <p>敬请广大���户重权，网站内容归作者本所有，严禁不经协商进行盗用，共同维护良好的网络权环境。</p>
     </div>
 
     <!-- 添加弹出层 -->
@@ -256,17 +253,11 @@
         </div>
     </div>
 
-    <!-- 在body标签结束前添加 -->
-    <div class="photo-modal" id="photoModal">
-        <span class="photo-close">&times;</span>
-        <img class="photo-modal-content" id="modalImg">
-    </div>
-
     <!-- 添加弹出层 -->
     <div class="modal" id="moreModal">
         <div class="modal-content">
             <span class="close">&times;</span>
-            <p>就不告诉你，略略略 😋</p>
+            <p>就不告诉你，略略 😋</p>
         </div>
     </div>
 
@@ -282,7 +273,7 @@
     <div class="modal" id="douyinModal">
         <div class="modal-content">
             <span class="close">&times;</span>
-            <img src="images/douyin.jpg" alt="��音二维码" class="modal-qr" loading="lazy">
+            <img src="images/douyin.jpg" alt="抖音二维码" class="modal-qr" loading="lazy">
             <p>扫码关注抖音</p>
         </div>
     </div>
@@ -304,7 +295,7 @@
         <div class="modal-content">
             <span class="close">&times;</span>
             <h3>请输入密码</h3>
-            <p class="password-hint">密码为己生日</p>
+            <p class="password-hint">密码为己生��</p>
             <input type="password" id="yellowPassword" class="password-input" placeholder="请输入密码">
             <button class="submit-btn" id="yellowSubmit">确认</button>
             <p class="error-message" id="yellowError"></p>
@@ -359,6 +350,14 @@
             <span class="close">&times;</span>
             <img src="images/1C.jpg" alt="小黑的照片" class="modal-qr" loading="lazy">
             <p>此小黑非彼小黑 😋</p>
+        </div>
+    </div>
+
+    <!-- 添加作者图片弹出层 -->
+    <div class="modal" id="aboutModal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <img src="images/images1.jpg" alt="作者照片" class="modal-qr" loading="lazy">
         </div>
     </div>
 </body>
