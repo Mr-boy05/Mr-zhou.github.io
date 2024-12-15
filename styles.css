@@ -10,6 +10,8 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent;
+    -webkit-touch-callout: none;
 }
 
 body {
@@ -17,6 +19,7 @@ body {
     line-height: 1.6;
     color: var(--text-color);
     background-color: var(--bg-color);
+    font-display: swap;
 }
 
 /* 导航栏样式 */
@@ -1026,7 +1029,7 @@ img {
     opacity: 0.8;
 }
 
-/* 密码输入框样式 */
+/* 密码输入样式 */
 .password-input {
     width: 100%;
     padding: 0.8rem;
@@ -1083,5 +1086,52 @@ img {
 
 img.loaded {
     opacity: 1;
+}
+
+/* 添加移动端性能优化 */
+* {
+    -webkit-tap-highlight-color: transparent;
+    -webkit-touch-callout: none;
+}
+
+/* 优化图片加载 */
+img {
+    content-visibility: auto;
+    contain-intrinsic-size: 400px;
+    background-color: #f5f5f5; /* 添加占位背景色 */
+}
+
+picture {
+    display: block;
+    width: 100%;
+    height: 100%;
+}
+
+picture source {
+    width: 100%;
+    height: 100%;
+}
+
+/* 移动端特定优化 */
+@media (max-width: 768px) {
+    .swiper {
+        height: auto;
+        aspect-ratio: 4/3;
+    }
+    
+    .photo-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 0.5rem;
+    }
+    
+    /* 减少动画效果 */
+    .photo-item:hover {
+        transform: none;
+    }
+    
+    /* 优化字体加载 */
+    body {
+        font-display: swap;
+    }
 }
   
