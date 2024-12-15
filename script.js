@@ -10,8 +10,12 @@ window.addEventListener('load', function() {
         },
         // 预加载图片
         preloadImages: true,
+        updateOnImagesReady: true,
         lazy: {
             loadPrevNext: true,
+            loadPrevNextAmount: 1,
+            loadOnTransitionStart: true,
+            checkInView: true
         },
         pagination: {
             el: '.swiper-pagination',
@@ -196,7 +200,7 @@ document.addEventListener('DOMContentLoaded', function() {
     setInterval(updateBirthdayCountdown, 1000); // 每秒更新一次
 });
 
-// 添加节假���数据
+// 添加节假日数据
 const holidays = {
     '1-1': '元旦',
     '2-14': '情人节',
@@ -354,7 +358,7 @@ document.addEventListener('DOMContentLoaded', function() {
             yellowPasswordModal.style.display = 'none';
             yellowModal.style.display = 'flex';
         } else {
-            yellowError.textContent = '密码错��，请重试';
+            yellowError.textContent = '密码错误，请重试';
             yellowPassword.value = '';
         }
     }
@@ -536,10 +540,11 @@ document.addEventListener('DOMContentLoaded', function() {
 window.addEventListener('load', function() {
     const swiper = new Swiper('.swiper', {
         // 预加载优化
-        preloadImages: false,
+        preloadImages: true,
+        updateOnImagesReady: true,
         lazy: {
             loadPrevNext: true,
-            loadPrevNextAmount: 2,
+            loadPrevNextAmount: 1,
             loadOnTransitionStart: true,
             checkInView: true
         },
