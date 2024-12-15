@@ -28,11 +28,6 @@
     Header set Connection keep-alive
 </IfModule>
 
-# 启用浏览器缓存
-<FilesMatch "\.(jpg|jpeg|png|gif|webp)$">
-    Header set Cache-Control "max-age=31536000, public"
-</FilesMatch> 
-
 # 图片缓存和压缩配置
 <IfModule mod_headers.c>
     # 启用浏览器缓存
@@ -59,7 +54,6 @@ AddType image/webp .webp
     # 移动端特定缓存策略
     <FilesMatch "\.(jpg|jpeg|png|gif|webp)$">
         Header set Cache-Control "max-age=2592000, public"
-        Header set Vary "Accept-Encoding"
     </FilesMatch>
     
     # 启用Keep-Alive
