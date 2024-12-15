@@ -67,25 +67,3 @@ AddType image/webp .webp
     AddOutputFilterByType DEFLATE image/png
     AddOutputFilterByType DEFLATE image/gif
 </IfModule>
-
-# 添加WebP支持
-AddType image/webp .webp
-
-# WebP缓存设置
-<IfModule mod_expires.c>
-    ExpiresByType image/webp "access plus 1 year"
-</IfModule>
-
-# 根据浏览器支持情况提供WebP
-<IfModule mod_rewrite.c>
-    RewriteEngine On
-    RewriteCond %{HTTP_ACCEPT} image/webp
-    RewriteCond %{REQUEST_FILENAME} (.+)\.(jpe?g|png)$
-    RewriteCond %{REQUEST_FILENAME}\.webp -f
-    RewriteRule (.+)\.(jpe?g|png)$ $1.webp [T=image/webp,E=accept:1]
-</IfModule>
-
-# 设置WebP的Content-Type
-<IfModule mod_headers.c>
-    Header append Vary Accept env=REDIRECT_accept
-</IfModule>
