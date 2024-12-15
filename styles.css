@@ -83,11 +83,10 @@ body {
 }
 
 .swiper-slide img {
-    width: auto;
-    height: auto;
-    max-width: 100%;
-    max-height: 80vh;
-    object-fit: contain;
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
 }
 
 .slide-caption {
@@ -565,56 +564,6 @@ img {
     }
 }
 
-/* 照片模态框样式 */
-.photo-modal {
-    display: none;
-    position: fixed;
-    z-index: 2000;
-    padding: 20px;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.9);
-    overflow: auto;
-}
-
-.photo-modal-content {
-    margin: auto;
-    display: block;
-    max-width: 90%;
-    max-height: 90vh;
-    object-fit: contain;
-}
-
-.photo-close {
-    position: fixed;
-    right: 35px;
-    top: 15px;
-    color: #f1f1f1;
-    font-size: 40px;
-    font-weight: bold;
-    cursor: pointer;
-    z-index: 2001;
-}
-
-.photo-close:hover,
-.photo-close:focus {
-    color: #bbb;
-    text-decoration: none;
-    cursor: pointer;
-}
-
-/* 添加动画效果 */
-.photo-modal-content {
-    animation: zoom 0.6s;
-}
-
-@keyframes zoom {
-    from {transform:scale(0)}
-    to {transform:scale(1)}
-}
-
 /* 生日倒计时样式 */
 .birthday-countdown {
     margin-bottom: 2rem;
@@ -732,8 +681,8 @@ img {
 
 /* 生日祝福样式 */
 .birthday-wish {
-    font-size: 2.5rem !important;  /* 放大字体 */
-    letter-spacing: 2px;  /* 增加字间距 */
+    font-size: 2.5rem !important;  /* 大字体 */
+    letter-spacing: 2px;  /* 增加间距 */
 }
 
 .birthday-wish .dot {
@@ -894,7 +843,7 @@ img {
     background-color: #ff6b6b;  /* 生日下方的点保持红色 */
 }
 
-/* 当前日期如果也是节假日 */
+/* 当前期如果也是节假日 */
 .calendar-day.current.holiday {
     color: white;
 }
@@ -938,7 +887,7 @@ img {
     margin-left: 2px;
 }
 
-/* 朋友列表容器样式 */
+/* 友列表容器样式 */
 .friends-container {
     display: flex;
     justify-content: space-between;
@@ -1029,7 +978,7 @@ img {
     opacity: 0.8;
 }
 
-/* 密码输入���样式 */
+/* 密码输入样式 */
 .password-input {
     width: 100%;
     padding: 0.8rem;
@@ -1070,7 +1019,7 @@ img {
     font-style: italic;
 }
 
-/* 添加关键渲染路径CSS */
+/* 添加关键路径CSS */
 @media screen {
     .navbar, .swiper, .about {
         content-visibility: auto;
@@ -1082,6 +1031,7 @@ img {
 img {
     opacity: 0;
     transition: opacity 0.3s ease-in;
+    background-color: #f5f5f5; /* 添加占位背景色 */
 }
 
 img.loaded {
@@ -1104,12 +1054,17 @@ img {
 @media (max-width: 768px) {
     .swiper {
         height: auto;
-        aspect-ratio: 4/3;
+        aspect-ratio: 16/9;
     }
     
     .photo-grid {
         grid-template-columns: repeat(2, 1fr);
         gap: 0.5rem;
+        padding: 0.5rem;
+    }
+    
+    .photo-item {
+        aspect-ratio: 1;
     }
     
     /* 减少动画效果 */
@@ -1117,9 +1072,64 @@ img {
         transform: none;
     }
     
+    /* 优化图片大小 */
+    .modal-qr {
+        max-width: 250px;
+    }
+    
     /* 优化字体加载 */
     body {
         font-display: swap;
+    }
+}
+
+/* 修改小黄弹窗的图片样式 */
+#yellowModal .modal-content {
+    position: relative;
+    padding: 2rem;
+    min-height: 450px;  /* 确保有足够空间显示旋转后的图片 */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;  /* 确保内容分布均匀 */
+}
+
+#yellowModal .modal-content img {
+    width: 300px;  /* 固定宽度 */
+    height: 300px;  /* 固定高度，保持正方形 */
+    object-fit: cover;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    transform: rotate(90deg);  /* 顺时针旋转90度 */
+    margin: 1rem 0;  /* 调整上下间距 */
+}
+
+#yellowModal .modal-content p {
+    width: 100%;
+    text-align: center;
+    margin-top: 1rem;  /* 确保与图片有足够距 */
+}
+
+/* 作者图片弹窗样式 */
+#aboutModal .modal-content {
+    position: relative;
+    padding: 2.5rem 1.5rem 1.5rem;  /* 增加顶部内边距，给关闭按钮留空间 */
+}
+
+#aboutModal .modal-content img {
+    width: 100%;
+    max-width: 300px;  /* 减小最大宽度 */
+    height: auto;
+    object-fit: contain;
+    margin: 0 auto;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* 移动端适配 */
+@media (max-width: 768px) {
+    #aboutModal .modal-content img {
+        max-width: 250px;
     }
 }
   
