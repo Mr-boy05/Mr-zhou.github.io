@@ -1,29 +1,6 @@
 // 移动端检测
 const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
 
-// 延迟初始化 Swiper
-window.addEventListener('load', function() {
-    const swiper = new Swiper('.swiper', {
-        loop: true,
-        autoplay: {
-            delay: 5000,
-            disableOnInteraction: false,
-        },
-        // 修改预加载配置
-        preloadImages: true,
-        lazy: false,  // 禁用懒加载
-        watchSlidesProgress: true,
-        pagination: {
-            el: '.swiper-pagination',
-            clickable: true,
-        },
-        navigation: {
-            nextEl: '.swiper-button-next',
-            prevEl: '.swiper-button-prev',
-        }
-    });
-});
-
 // 平滑滚动
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', function (e) {
@@ -49,11 +26,6 @@ document.addEventListener('DOMContentLoaded', function() {
     const douyinModal = document.getElementById('douyinModal');
     const closeDouyinBtn = douyinModal.querySelector('.close');
     
-    // 电话按钮
-    const phoneBtn = document.getElementById('phoneBtn');
-    const phoneModal = document.getElementById('phoneModal');
-    const closePhoneBtn = phoneModal.querySelector('.close');
-    
     // 点击按钮显示对应的弹窗
     weixinBtn.onclick = function(e) {
         e.preventDefault();
@@ -65,11 +37,6 @@ document.addEventListener('DOMContentLoaded', function() {
         douyinModal.style.display = 'flex';
     }
     
-    phoneBtn.onclick = function(e) {
-        e.preventDefault();
-        phoneModal.style.display = 'flex';
-    }
-    
     // 点击关闭按钮关闭对应的弹窗
     closeWeixinBtn.onclick = function() {
         weixinModal.style.display = 'none';
@@ -77,10 +44,6 @@ document.addEventListener('DOMContentLoaded', function() {
     
     closeDouyinBtn.onclick = function() {
         douyinModal.style.display = 'none';
-    }
-    
-    closePhoneBtn.onclick = function() {
-        phoneModal.style.display = 'none';
     }
     
     // 统一处理点击空白区域关闭弹窗
@@ -121,17 +84,19 @@ function updateBirthdayCountdown() {
     const now = new Date();
     const currentYear = now.getFullYear();
     const birthday = new Date(currentYear, 11, 21); // 12月21日
+    const startYear = 2024; // 修改为2024年，对应19岁
+    const age = currentYear - startYear + 19; // 计算当前年龄
     
-    // 获取倒计时显示素
+    // 获取倒计时显示元素
     const countdownElement = document.getElementById('countdown');
     
     // 检查是否是生日当天
     if (now.getMonth() === birthday.getMonth() && now.getDate() === birthday.getDate()) {
-        // 生日当天显示祝福语
+        // 生日当天显示年龄祝福语
         countdownElement.innerHTML = `
             <div class="birthday-message">
                 <i class="fas fa-star"></i>
-                <div class="birthday-text">19<span class="dot">·</span>快乐</div>
+                <div class="birthday-text">${age}<span class="dot">·</span>快乐</div>
             </div>
         `;
         countdownElement.classList.add('birthday-wish');
@@ -182,7 +147,7 @@ function updateCalendar() {
     const now = new Date();
     const months = ['一月', '二月', '三月', '四月', '五月', '六月', '七月', '八月', '九月', '十月', '十一月', '十二月'];
     
-    // 更新月份和年份
+    // 更新月份和份
     document.getElementById('calendar-month-year').textContent = 
         `${months[now.getMonth()]} ${now.getFullYear()}`;
     
@@ -265,31 +230,6 @@ document.addEventListener('DOMContentLoaded', function() {
     window.onclick = function(event) {
         if (event.target == loadMoreModal) {
             loadMoreModal.style.display = 'none';
-        }
-    }
-});
-
-// 电话按钮点击事件
-document.addEventListener('DOMContentLoaded', function() {
-    const phoneBtn = document.getElementById('phoneBtn');
-    const phoneModal = document.getElementById('phoneModal');
-    const closePhoneBtn = phoneModal.querySelector('.close');
-    
-    // 点击电话图标时显示弹出层
-    phoneBtn.onclick = function(e) {
-        e.preventDefault();
-        phoneModal.style.display = 'flex';
-    }
-    
-    // 点击关闭按钮关闭弹出层
-    closePhoneBtn.onclick = function() {
-        phoneModal.style.display = 'none';
-    }
-    
-    // 点击弹出层外部区域关闭弹出层
-    window.onclick = function(event) {
-        if (event.target == phoneModal) {
-            phoneModal.style.display = 'none';
         }
     }
 });
@@ -436,7 +376,7 @@ document.addEventListener('DOMContentLoaded', function() {
             blackPasswordModal.style.display = 'none';
             blackModal.style.display = 'flex';
         } else {
-            blackError.textContent = '密码错误，请重试';
+            blackError.textContent = '密码错误，���重试';
             blackPassword.value = '';
         }
     }
@@ -475,13 +415,9 @@ document.addEventListener('DOMContentLoaded', function() {
             if (entry.isIntersecting) {
                 const img = entry.target;
                 if (img.dataset.src) {
-                    const newImg = new Image();
-                    newImg.onload = function() {
-                        img.src = img.dataset.src;
-                        img.classList.add('loaded');
-                        observer.unobserve(img);
-                    };
-                    newImg.src = img.dataset.src;
+                    img.src = img.dataset.src;
+                    img.removeAttribute('data-src');
+                    observer.unobserve(img);
                 }
             }
         });
@@ -495,28 +431,11 @@ document.addEventListener('DOMContentLoaded', function() {
         if (img.getBoundingClientRect().top < window.innerHeight) {
             imageObserver.observe(img);
         } else {
-            setTimeout(() => {
+            requestIdleCallback(() => {
                 imageObserver.observe(img);
-            }, 1000);
+            });
         }
     });
-});
-
-// 优化Swiper配置
-const swiper = new Swiper('.swiper', {
-    preloadImages: false,
-    lazy: {
-        loadPrevNext: true,
-        loadPrevNextAmount: 1,
-        loadOnTransitionStart: true
-    },
-    speed: isMobile ? 300 : 500,
-    loop: true,
-    autoplay: {
-        delay: 5000,
-        disableOnInteraction: false,
-        pauseOnMouseEnter: true
-    }
 });
 
 // 添加图片加载错误处理
@@ -551,4 +470,98 @@ document.addEventListener('DOMContentLoaded', function() {
             aboutModal.style.display = 'none';
         }
     }
-}); 
+});
+
+// 更新加载进
+function updateLoadingText(percent) {
+    const loadingText = document.querySelector('.loading-text');
+    if (loadingText) {
+        loadingText.textContent = `${Math.round(percent)}%`;
+    }
+}
+
+// 监听图片加载
+document.addEventListener('DOMContentLoaded', function() {
+    const images = document.querySelectorAll('img');
+    let loadedImages = 0;
+    const totalImages = images.length;
+
+    function imageLoaded() {
+        loadedImages++;
+        const progress = (loadedImages / totalImages) * 100;
+        updateLoadingText(progress);
+    }
+
+    images.forEach(img => {
+        if (img.complete) {
+            imageLoaded();
+        } else {
+            img.addEventListener('load', imageLoaded);
+            img.addEventListener('error', imageLoaded);
+        }
+    });
+
+    // 确保最终显示100%
+    setTimeout(() => {
+        updateLoadingText(100);
+    }, 3000);
+});
+
+// Hello点击事件
+document.addEventListener('DOMContentLoaded', function() {
+    const helloText = document.querySelector('.hello-text');
+    const modal = document.createElement('div');
+    modal.className = 'modal';
+    modal.innerHTML = `
+        <div class="modal-content welcome-message">
+            <span class="close">&times;</span>
+            <p>欢迎来到作的世界，一个能够让你放松的网页</p>
+        </div>
+    `;
+    document.body.appendChild(modal);
+    
+    const closeBtn = modal.querySelector('.close');
+    
+    // 点击Hello显示欢迎文本
+    helloText.onclick = function() {
+        modal.style.display = 'flex';
+    }
+    
+    // 点击关闭按钮关闭弹窗
+    closeBtn.onclick = function() {
+        modal.style.display = 'none';
+    }
+    
+    // 点击弹窗外部关闭
+    window.onclick = function(event) {
+        if (event.target == modal) {
+            modal.style.display = 'none';
+        }
+    }
+});
+
+// QQ按钮点击事件
+document.addEventListener('DOMContentLoaded', function() {
+    const qqBtn = document.getElementById('qqBtn');
+    const qqModal = document.getElementById('qqModal');
+    const closeQqBtn = qqModal.querySelector('.close');
+    
+    // 点击QQ图标显示弹窗
+    qqBtn.onclick = function(e) {
+        e.preventDefault();
+        qqModal.style.display = 'flex';
+    }
+    
+    // 点击关闭按钮关闭弹窗
+    closeQqBtn.onclick = function() {
+        qqModal.style.display = 'none';
+    }
+    
+    // 点击弹窗外部关闭
+    window.onclick = function(event) {
+        if (event.target == qqModal) {
+            qqModal.style.display = 'none';
+        }
+    }
+});
+ 
