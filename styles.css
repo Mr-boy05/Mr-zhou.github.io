@@ -352,7 +352,7 @@ body {
     text-align: center;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
     animation: modalShow 0.3s ease;
-    /* 移除 margin ���，因为使用 flex 布局居中 */
+    /* 移除 margin ，因为使用 flex 布局居中 */
 }
 
 .modal-qr {
@@ -900,7 +900,7 @@ img {
     background-color: white;
 }
 
-/* 添加悬停提��样式 */
+/* 添加悬停提示样式 */
 .calendar-day.holiday:hover {
     cursor: help;
 }
@@ -1065,5 +1065,23 @@ img {
     font-size: 0.9rem;
     margin-bottom: 0.5rem;
     font-style: italic;
+}
+
+/* 添加关键渲染路径CSS */
+@media screen {
+    .navbar, .swiper, .about {
+        content-visibility: auto;
+        contain-intrinsic-size: 1px 5000px;
+    }
+}
+
+/* 优化图片加载动画 */
+img {
+    opacity: 0;
+    transition: opacity 0.3s ease-in;
+}
+
+img.loaded {
+    opacity: 1;
 }
   
