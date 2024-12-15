@@ -2,7 +2,8 @@
 <html lang="zh">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="x-dns-prefetch-control" content="on">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>My rich routine</title>
     
     <!-- 关键CSS内联 -->
@@ -41,9 +42,8 @@
     
     <!-- 预加载首屏关键图片 -->
     <link rel="preload" as="image" href="images/images1.jpg" fetchpriority="high">
-    <link rel="preload" as="image" href="images/Beautiful.jpg">
     
-    <!-- 预加载字体图标，避免图标闪烁 -->
+    <!-- 移动端字体优化 -->
     <link rel="preload" href="https://cdn.bootcdn.net/ajax/libs/font-awesome/6.0.0/webfonts/fa-solid-900.woff2" as="font" type="font/woff2" crossorigin>
     
     <!-- 添加DNS预解析 -->
@@ -58,7 +58,7 @@
             <span class="subtitle">无限进步</span>
         </div>
         <div class="nav-links">
-            <a href="#about">关于我</a>
+            <a href="#about">关于��</a>
             <a href="#photo-wall">作品集</a>
             <a href="#contact">联系方式</a>
         </div>
@@ -68,15 +68,19 @@
     <div class="swiper">
         <div class="swiper-wrapper">
             <div class="swiper-slide">
-                <img src="images/images1.jpg" alt="1" 
-                    fetchpriority="high" 
-                    decoding="sync" 
-                    importance="high"
-                    loading="eager">
+                <picture>
+                    <source srcset="images/images1.webp" type="image/webp">
+                    <source srcset="images/images1-mobile.webp" type="image/webp" media="(max-width: 768px)">
+                    <img src="images/images1.jpg" alt="1" 
+                        width="800" 
+                        height="600"
+                        fetchpriority="high">
+                </picture>
                 <div class="slide-caption">我</div>
             </div>
             <div class="swiper-slide">
-                <img src="images/Beautiful.jpg" alt="照片2" loading="lazy" decoding="async">
+                <img data-src="images/Beautiful.jpg" alt="照片2" loading="lazy" class="swiper-lazy">
+                <div class="swiper-lazy-preloader"></div>
                 <div class="slide-caption">哇</div>
             </div>
             <div class="swiper-slide">
@@ -145,7 +149,11 @@
     <section class="photo-wall" id="photo-wall">
         <div class="photo-grid">
             <div class="photo-item">
-                <img src="images/1p.jpg" alt="照片1" loading="lazy">
+                <picture>
+                    <source srcset="images/1p.webp" type="image/webp">
+                    <source srcset="images/1p-mobile.webp" type="image/webp" media="(max-width: 768px)">
+                    <img src="images/1p.jpg" alt="照片1" loading="lazy">
+                </picture>
             </div>
             <div class="photo-item">
                 <img src="images/2p.jpg" alt="照片2" loading="lazy">
@@ -244,7 +252,7 @@
 
     <!-- 添加版权声明 -->
     <div class="copyright">
-        <p>敬请广大用户重权，网站内容归作者本所有，严禁不经协商进行盗用，共同维护良好的网络���权环境。</p>
+        <p>敬请广大���户重权，网站内容归作者本所有，严禁不经协商进行盗用，共同维护良好的网络权环境。</p>
     </div>
 
     <!-- 添加弹出层 -->
@@ -282,7 +290,7 @@
     <div class="modal" id="douyinModal">
         <div class="modal-content">
             <span class="close">&times;</span>
-            <img src="images/douyin.jpg" alt="抖音二维码" class="modal-qr" loading="lazy">
+            <img src="images/douyin.jpg" alt="音二维码" class="modal-qr" loading="lazy">
             <p>扫码关注抖音</p>
         </div>
     </div>
