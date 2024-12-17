@@ -515,7 +515,7 @@ document.addEventListener('DOMContentLoaded', function() {
     modal.innerHTML = `
         <div class="modal-content welcome-message">
             <span class="close">&times;</span>
-            <p>欢迎来到作的世界，一个能够让你放松的网页</p>
+            <p>欢迎来到作者的世界，一个能够让你放松的网页</p>
         </div>
     `;
     document.body.appendChild(modal);
